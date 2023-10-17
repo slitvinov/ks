@@ -23,9 +23,7 @@ M = 16;
 r = exp(1i*pi*((1:M)-.5)/M);
 % roots of unity
 LR = h*L(:,ones(M,1)) + r(ones(N,1),:);
-Q = h*real(mean(
-(exp(LR/2)-1)./LR
-,2));
+Q = h*real(mean((exp(LR/2)-1)./LR,2));
 f1 = h*real(mean( (-4-LR+exp(LR).*(4-3*LR+LR.^2))./LR.^3 ,2));
 f2 = h*real(mean((2+LR+exp(LR).*(-2+LR))./LR.^3,2));
 f3 = h*real(mean( (-4-3*LR-LR.^2+exp(LR).*(4-LR))./LR.^3 ,2));
