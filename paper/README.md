@@ -22,4 +22,8 @@ Phenomena, 18(1-3), 85-112.
 
 ```
 matlab  -softwareopengl
+>> kursiv
+>> set(gca,'YTickLabel',[]);
+>> set(gca,'XTickLabel',[]);
+>> exportgraphics(gca, 'kursiv.png', 'Resolution', 300);
 ```
