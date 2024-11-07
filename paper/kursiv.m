@@ -7,13 +7,13 @@
 
 %   Spatial grid and initial condition:
 N   = 128;
-x   = 32*pi*(1:N)’/N;
+x   = 32*pi*(1:N)'/N;
 u   = cos(x/16).*(1+sin(x/16));
 v   = fft(u);
 
 % Precompute various ETDRK4 scalar quantities:
 h = 1/4;                          % time step
-k = [0:N/2-1 0 -N/2+1:-1]’/16;    % wave numbers
+k = [0:N/2-1 0 -N/2+1:-1]'/16;    % wave numbers
 L = k.^2 - k.^4;                  % Fourier multipliers
 E = exp(h*L); E2 = exp(h*L/2);
 M = 16;                           % no. of points for complex means
@@ -46,6 +46,6 @@ end
 
 % Plot results:
 surf(tt,x,uu), shading interp, lighting phong, axis tight
-view([-90 90]), colormap(autumn); set(gca,’zlim’,[-5 50])
-light(’color’,[1 1 0],’position’,[-1,2,2])
+view([-90 90]), colormap(autumn); set(gca,'zlim',[-5 50])
+light('color',[1 1 0],'position',[-1,2,2])
 material([0.30 0.60 0.60 40.00 1.00]);

@@ -50,5 +50,5 @@ for n = 1:nmax
 end
 
 % Plot results:
-surf([1;x;-1],tt,uu’), lighting phong, axis tight
-view([-45 60]), colormap(cool), light(’col’,[1 1 0],’pos’,[-10 0 10])
+surf([1;x;-1],tt,uu'), lighting phong, axis tight
+view([-45 60]), colormap(cool), light('col',[1 1 0],'pos',[-10 0 10])
