@@ -19,3 +19,7 @@ MHz Pentium machine.
 D. W., Moloney, J. V., & Newell, A. C. (1986). Chaos and coherent
 structures in partial differential equations. Physica D: Nonlinear
 Phenomena, 18(1-3), 85-112.
+
+```
+matlab  -softwareopengl
+```
