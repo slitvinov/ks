@@ -1,30 +1,30 @@
-% kursiv.m - solution of Kuramoto-Sivashinsky equation by ETDRK4 scheme
-%
-%   u_t = -u*u_x - u_xx - u_xxxx, periodic BCs on [0,32*pi]
-%   computation is based on v = fft(u), so linear term is diagonal
-%   compare p27.m in Trefethen, "Spectral Methods in MATLAB", SIAM 2000
-%   AK Kassam and LN Trefethen, July 2002
+# kursiv.m - solution of Kuramoto-Sivashinsky equation by ETDRK4 scheme
+#
+#   u_t = -u*u_x - u_xx - u_xxxx, periodic BCs on [0,32*pi]
+#   computation is based on v = fft(u), so linear term is diagonal
+#   compare p27.m in Trefethen, "Spectral Methods in MATLAB", SIAM 2000
+#   AK Kassam and LN Trefethen, July 2002
 
-%   Spatial grid and initial condition:
+#   Spatial grid and initial condition:
 N   = 128;
 x   = 32*pi*(1:N)'/N;
 u   = cos(x/16).*(1+sin(x/16));
 v   = fft(u);
 
-% Precompute various ETDRK4 scalar quantities:
-h = 1/4;                          % time step
-k = [0:N/2-1 0 -N/2+1:-1]'/16;    % wave numbers
-L = k.^2 - k.^4;                  % Fourier multipliers
+# Precompute various ETDRK4 scalar quantities:
+h = 1/4;                          # time step
+k = [0:N/2-1 0 -N/2+1:-1]'/16;    # wave numbers
+L = k.^2 - k.^4;                  # Fourier multipliers
 E = exp(h*L); E2 = exp(h*L/2);
-M = 16;                           % no. of points for complex means
-r = exp(1i*pi*((1:M)-.5)/M);      % roots of unity
+M = 16;                           # no. of points for complex means
+r = exp(1i*pi*((1:M)-.5)/M);      # roots of unity
 LR = h*L(:,ones(M,1)) + r(ones(N,1),:);
 Q = h*real(mean(             (exp(LR/2)-1)./LR              ,2));
 f1 = h*real(mean( (-4-LR+exp(LR).*(4-3*LR+LR.^2))./LR.^3 ,2));
 f2 = h*real(mean(    (2+LR+exp(LR).*(-2+LR))./LR.^3     ,2));
 f3 = h*real(mean( (-4-3*LR-LR.^2+exp(LR).*(4-LR))./LR.^3 ,2));
 
-% Main time-stepping loop:
+# Main time-stepping loop:
 uu = u; tt = 0;
 tmax = 150; nmax = round(tmax/h); nplt = floor((tmax/100)/h);
 g = -0.5i*k;
@@ -43,9 +43,9 @@ for n = 1:nmax
         uu = [uu,u]; tt = [tt,t];
     end
 end
-
-% Plot results:
-surf(tt,x,uu), shading interp, lighting phong, axis tight
-view([-90 90]), colormap(autumn); set(gca,'zlim',[-5 50])
-light('color',[1 1 0],'position',[-1,2,2])
-material([0.30 0.60 0.60 40.00 1.00]);
+figure('Visible', 'off');
+colormap(jet);
+h = imagesc(tt,x,uu);
+# set(h, 'EdgeColor', 'none');
+axis equal;
+saveas(gcf, 'kursiv.png');
